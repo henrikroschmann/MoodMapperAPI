@@ -1,5 +1,4 @@
-﻿
-namespace MoodMapperAPI.Abstractions;
+﻿namespace MoodMapperAPI.Abstractions;
 
 public interface ITokenService
 {

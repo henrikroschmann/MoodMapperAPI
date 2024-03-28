@@ -1,22 +1,14 @@
-﻿using CommunityToolkit.Diagnostics;
-using Microsoft.AspNetCore.Authorization;
-using MoodMapperAPI.Domain.Models;
-
-namespace MoodMapperAPI.Controllers;
+﻿namespace MoodMapperAPI.Controllers;
 
 [ApiController]
 [Route("/api/v1/[controller]")]
-public class AuthenticationController : ControllerBase
+public class AuthenticationController(IAccountService accountService, ILogger<AuthenticationController> logger) : ControllerBase
 {
-    private readonly IAccountService _accountService;
-
-    public AuthenticationController(IAccountService accountService)
-    {
-        _accountService = accountService;
-    }
+    private readonly IAccountService _accountService = accountService;
+    private readonly ILogger<AuthenticationController> _logger = logger;
 
     [HttpPost("register")]
-    public IActionResult Register([FromBody] RegisterDto model)
+    public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto model)
     {
         if (!ModelState.IsValid)
         {
@@ -40,7 +32,7 @@ public class AuthenticationController : ControllerBase
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message, e);
+            _logger.LogError($"Something unexpected happened {e.Message}, {e}");
             return BadRequest();
         }
     }
@@ -89,8 +81,9 @@ public class AuthenticationController : ControllerBase
 
             return Ok();
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            _logger.LogError($"Something unexpected happened {e.Message}, {e}");
             return BadRequest();
         }
     }

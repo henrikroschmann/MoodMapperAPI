@@ -2,9 +2,10 @@
 
 public class CreationInfo
 {
-	public CreationInfo(DateTime creationDate)
-	{
-		CreationDate = creationDate;
-	}
+    public CreationInfo(DateTime creationDate)
+    {
+        CreationDate = creationDate;
+    }
+
     public DateTime CreationDate { get; set; }
 }

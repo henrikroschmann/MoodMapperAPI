@@ -1,10 +1,10 @@
-﻿using MoodMapperAPI.Controllers;
-
-namespace MoodMapperAPI.Abstractions;
+﻿namespace MoodMapperAPI.Abstractions;
 
 public interface IJournalService
 {
-    Task CreateJournal(JournalDto journal);
+    Task<Journal> CreateJournal(JournalDto journal);
+
     Task DeleteJournal(int id);
-    Task GetJournal(int id);
+
+    Task<Journal> GetJournal(int id);
 }

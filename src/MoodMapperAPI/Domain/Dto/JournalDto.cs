@@ -1,4 +1,4 @@
-﻿namespace MoodMapperAPI.Controllers
+﻿namespace MoodMapperAPI.Domain.Dto
 {
     public class JournalDto
     {

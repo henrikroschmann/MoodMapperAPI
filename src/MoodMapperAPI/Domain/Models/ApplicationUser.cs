@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace MoodMapperAPI.Domain.Options;
+﻿namespace MoodMapperAPI.Domain.Options;
 
 public class ApplicationUser : IdentityUser
 {

@@ -2,14 +2,10 @@
 
 [ApiController]
 [Route("/api/v1/[controller]")]
-public class EntryController : ControllerBase
+public class EntryController(IEntryService entryService, ILogger<EntryController> logger) : ControllerBase
 {
-    private readonly IEntryService _entryService;
-
-    public EntryController(IEntryService entryService)
-    {
-        _entryService = entryService;
-    }
+    private readonly IEntryService _entryService = entryService;
+    private readonly ILogger<EntryController> _logger = logger;
 
     [HttpPost]
     public async Task<IActionResult> CreateEntry([FromBody] EntryDto entry)
@@ -27,7 +23,7 @@ public class EntryController : ControllerBase
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            _logger.LogError($"Something unexpected happened {e.Message}, {e}");
             return BadRequest();
         }
     }
@@ -43,7 +39,7 @@ public class EntryController : ControllerBase
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message, e);
+            _logger.LogError($"Something unexpected happened {e.Message}, {e}");
             return BadRequest();
         }
     }
@@ -58,7 +54,7 @@ public class EntryController : ControllerBase
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            _logger.LogError($"Something unexpected happened {e.Message}, {e}");
             return BadRequest();
         }
     }
@@ -78,7 +74,7 @@ public class EntryController : ControllerBase
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            _logger.LogError($"Something unexpected happened {e.Message}, {e}");
             return BadRequest();
         }
     }

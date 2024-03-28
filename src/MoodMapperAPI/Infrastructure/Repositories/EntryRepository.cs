@@ -1,5 +1,4 @@
-﻿
-using MoodMapperAPI.Infrastructure.Data;
+﻿using MoodMapperAPI.Infrastructure.Data;
 
 namespace MoodMapperAPI.Infrastructure.Repositories;
 

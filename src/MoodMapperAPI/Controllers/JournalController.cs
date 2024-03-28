@@ -1,17 +1,11 @@
-﻿using CommunityToolkit.Diagnostics;
-
-namespace MoodMapperAPI.Controllers;
+﻿namespace MoodMapperAPI.Controllers;
 
 [ApiController]
 [Route("/api/v1/[controller]")]
-public class JournalController : ControllerBase
+public class JournalController(IJournalService journalService, ILogger<JournalController> logger) : ControllerBase
 {
-    private readonly IJournalService _journalService;
-
-    public JournalController(IJournalService journalService)
-    {
-        _journalService = journalService;
-    }
+    private readonly IJournalService _journalService = journalService;
+    private readonly ILogger<JournalController> _logger = logger;
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetJournal(int id)
@@ -27,7 +21,7 @@ public class JournalController : ControllerBase
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message, e);
+            _logger.LogError($"Something unexpected happened {e.Message}, {e}");
             return BadRequest();
         }
     }
@@ -48,7 +42,7 @@ public class JournalController : ControllerBase
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            _logger.LogError($"Something unexpected happened {e.Message}, {e}");
             return BadRequest();
         }
     }
@@ -63,7 +57,7 @@ public class JournalController : ControllerBase
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message, e);
+            _logger.LogError($"Something unexpected happened {e.Message}, {e}");
             return BadRequest();
         }
     }

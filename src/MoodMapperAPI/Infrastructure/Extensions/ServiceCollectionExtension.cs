@@ -47,14 +47,14 @@ public static class ServiceCollectionExtension
 
     //.AddInterceptors(sp.GetRequiredService<SoftDeleteInterceptor>()));
 
-//    public static IServiceCollection AddServiceRegistration(this IServiceCollection services) =>
-//    services
-//        .AddTransient<IAccountService, AccountService>()
-//        .AddTransient<ITokenService, TokenService>()
-//        .AddTransient<IInvitationService, InvitationService>()
-//        .AddTransient<IMappingService, MappingService>()
-//        .AddTransient<IUserService, UserService>()
+    //    public static IServiceCollection AddServiceRegistration(this IServiceCollection services) =>
+    //    services
+    //        .AddTransient<IAccountService, AccountService>()
+    //        .AddTransient<ITokenService, TokenService>()
+    //        .AddTransient<IInvitationService, InvitationService>()
+    //        .AddTransient<IMappingService, MappingService>()
+    //        .AddTransient<IUserService, UserService>()
 
-//        .AddTransient<IUserOrganizationService, UserOrganizationService>()
-//        .AddTransient<IOrganizationService, OrganizationService>();
+    //        .AddTransient<IUserOrganizationService, UserOrganizationService>()
+    //        .AddTransient<IOrganizationService, OrganizationService>();
 }

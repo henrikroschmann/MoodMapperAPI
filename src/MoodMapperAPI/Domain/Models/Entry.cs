@@ -1,6 +1,4 @@
-﻿using MoodMapperAPI.Domain.Enums;
-
-namespace MoodMapperAPI.Domain.Options;
+﻿namespace MoodMapperAPI.Domain.Options;
 
 public class Entry
 {

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace MoodMapperAPI.Infrastructure.Data;
+﻿namespace MoodMapperAPI.Infrastructure.Data;
 
 public class ApplicationDbContext : DbContext
 {
