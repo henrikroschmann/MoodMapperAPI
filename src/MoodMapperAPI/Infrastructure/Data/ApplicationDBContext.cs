@@ -14,13 +14,28 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Journal>()
             .HasKey(x => x.Id);
 
-
         modelBuilder.Entity<Journal>()
-            .HasMany(x => x.Entries)
-            .WithOne(e => e.Journal)
-            .HasForeignKey(e => e.JournalId);
+            .HasOne(x => x.User)
+            .WithOne(x => x.Journal)
+            .HasForeignKey<Journal>(x => x.UserId);
 
         modelBuilder.Entity<Entry>()
             .HasKey(x => x.Id);
+
+        modelBuilder.Entity<Entry>()
+            .HasOne(x => x.User);
+
+        modelBuilder.Entity<ApplicationUser>()
+            .HasOne(x => x.Journal);
+
+        modelBuilder.Entity<ApplicationUser>()
+            .HasMany(x => x.Entries)
+            .WithOne(x => x.User)
+            .HasForeignKey(x => x.UserId);
+
+        modelBuilder.Entity<ApplicationUser>(entity =>
+        {
+            entity.ToTable(name: "Users");
+        });
     }
 }

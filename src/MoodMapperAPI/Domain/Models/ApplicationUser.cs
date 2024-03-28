@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace MoodMapperAPI.Domain.Models;
+namespace MoodMapperAPI.Domain.Options;
 
 public class ApplicationUser : IdentityUser
 {
-    // marker
+    public List<Entry> Entries { get; set; }
+    public Journal Journal { get; set; }
+    public DateTime LastLoggedIn { get; internal set; }
 }

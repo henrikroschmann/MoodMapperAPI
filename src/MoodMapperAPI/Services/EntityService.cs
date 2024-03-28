@@ -1,30 +1,24 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using MoodMapperAPI.Domain.Enums;
+﻿namespace MoodMapperAPI.Services;
 
-namespace MoodMapperAPI.Services;
-
-public class EntityService : IEntryService
+public class EntityService(
+    IEntryRepository entryRepository,
+    IJournalRepository journalRepository,
+    IAuthService authorizationService,
+    UserManager<ApplicationUser> userManager) : IEntryService
 {
-    private readonly IJournalRepository _journalRepository;
-    private readonly IEntryRepository _entryRepository;
-    private readonly IAuthService _authorizationService;
-
-    public EntityService(
-        IEntryRepository entryRepository,
-        IJournalRepository journalRepository,
-        IAuthService authorizationService)
-    {
-        _entryRepository = entryRepository;
-        _journalRepository = journalRepository;
-        _authorizationService = authorizationService;
-    }
+    private readonly IJournalRepository _journalRepository = journalRepository;
+    private readonly IEntryRepository _entryRepository = entryRepository;
+    private readonly IAuthService _authorizationService = authorizationService;
+    private readonly UserManager<ApplicationUser> _userManager = userManager;
 
     public async Task<Entry> CreateEntry(EntryDto entry, string? userId)
     {
         ArgumentNullException.ThrowIfNull(userId);
         var journal = await _journalRepository.GetByUser(userId) ??
                       throw new JournalNotFoundException("Journal not found for the specified user.");
-        
+
+        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == userId) ??
+            throw new UnauthorizedAccessException("User not found.");
         //if (!await _authorizationService.CanUserModifyJournal(userId, journal.Id))
         //{
         //    throw new UnauthorizedAccessException("User is not authorized to modify this journal.");
@@ -34,17 +28,15 @@ public class EntityService : IEntryService
         {
             Id = null,
             Title = entry.Title,
-            Description = entry.Description, 
+            Description = entry.Description,
             Creation = new CreationInfo(DateTime.UtcNow),
-            Mood = (MoodLevel)entry.Mood
+            Mood = (MoodLevel)entry.Mood,
+            JournalId = journal.Id,
+            UserId = userId,
+            User = user
         };
-        
-        await _entries
-        
-        
-        journal.Entries.Add(newEntry);
-        await _journalRepository.SaveAsync();
 
+        await _entryRepository.AddEntry(newEntry);
         return newEntry;
     }
 
@@ -75,10 +67,4 @@ public class EntityService : IEntryService
     {
         throw new NotImplementedException();
     }
-}
-
-public interface IAuthService
-{
-    Task<bool> CanUserModifyJournal(string userId, int journalId);
-    Task<bool> CanUserModifyEntry(int userId, int entryId);
 }

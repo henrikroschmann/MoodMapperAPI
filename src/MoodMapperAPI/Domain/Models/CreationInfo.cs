@@ -1,4 +1,4 @@
-﻿namespace MoodMapperAPI.Domain.Models;
+﻿namespace MoodMapperAPI.Domain.Options;
 
 public class CreationInfo
 {

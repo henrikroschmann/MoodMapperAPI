@@ -1,6 +1,6 @@
 ﻿using MoodMapperAPI.Domain.Enums;
 
-namespace MoodMapperAPI.Domain.Models;
+namespace MoodMapperAPI.Domain.Options;
 
 public class Entry
 {
@@ -11,4 +11,7 @@ public class Entry
     public MoodLevel Mood { get; set; }
     public int JournalId { get; set; }
     public Journal Journal { get; set; }
+
+    public string UserId { get; set; }
+    public ApplicationUser User { get; set; }
 }
