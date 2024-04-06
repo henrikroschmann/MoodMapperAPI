@@ -2,7 +2,8 @@
 
 public class ApplicationUser : IdentityUser
 {
-    public List<Entry> Entries { get; set; }
-    public Journal Journal { get; set; }
+    public virtual ICollection<Journal>? Journals { get; set; }
+    public virtual ICollection<Tag> Tags { get; set; }
+    public virtual ICollection<Entry> Entries { get; set; }
     public DateTime LastLoggedIn { get; internal set; }
 }

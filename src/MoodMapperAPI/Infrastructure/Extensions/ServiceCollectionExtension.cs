@@ -42,19 +42,20 @@ public static class ServiceCollectionExtension
     this IServiceCollection services, string connectionString) =>
         services
         //.AddSingleton<SoftDeleteInterceptor>()
-        .AddDbContext<ApplicationDbContext>((sp, options) =>
+        .AddDbContext<ApplicationDbContext>((options) =>
             options.UseSqlite(connectionString));
 
-    //.AddInterceptors(sp.GetRequiredService<SoftDeleteInterceptor>()));
+   // .AddInterceptors(sp.GetRequiredService<SoftDeleteInterceptor>()));
 
-    //    public static IServiceCollection AddServiceRegistration(this IServiceCollection services) =>
-    //    services
-    //        .AddTransient<IAccountService, AccountService>()
-    //        .AddTransient<ITokenService, TokenService>()
-    //        .AddTransient<IInvitationService, InvitationService>()
-    //        .AddTransient<IMappingService, MappingService>()
-    //        .AddTransient<IUserService, UserService>()
+        public static IServiceCollection AddServiceRegistration(this IServiceCollection services) =>
+        services
+            .AddScoped<ApplicationDbContext>();
+            //.AddTransient<IAccountService, AccountService>()
+            //.AddTransient<ITokenService, TokenService>()
+            //.AddTransient<IInvitationService, InvitationService>()
+            //.AddTransient<IMappingService, MappingService>()
+            //.AddTransient<IUserService, UserService>()
 
-    //        .AddTransient<IUserOrganizationService, UserOrganizationService>()
-    //        .AddTransient<IOrganizationService, OrganizationService>();
+            //.AddTransient<IUserOrganizationService, UserOrganizationService>()
+            //.AddTransient<IOrganizationService, OrganizationService>();
 }

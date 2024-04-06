@@ -67,4 +67,9 @@ public class EntityService(
     {
         throw new NotImplementedException();
     }
+
+    public Task DeleteEntry(int id)
+    {
+        throw new NotImplementedException();
+    }
 }

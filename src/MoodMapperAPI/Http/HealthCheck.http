@@ -1,0 +1,9 @@
+@baseurl = http://localhost:56257
+###
+# Check Api health 
+GET {{@baseUrl}}/health
+
+
+###
+# Check Api live 
+GET {{@baseUrl}}/live

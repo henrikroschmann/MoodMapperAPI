@@ -12,20 +12,11 @@ public static class HostApplicationBuilderExtension
 
         // Autentication
         var jwtTokenSettings = builder.Configuration.GetRequiredSection(nameof(JwtTokenSettings)).Get<JwtTokenSettings>()!;
-        builder.Services.AddAuth(jwtTokenSettings);
-        //builder.Services.AddServiceRegistration();
+        //builder.Services.AddAuth(jwtTokenSettings);
+        builder.Services.AddServiceRegistration();
 
         builder.Services.AddControllers();
-
-        builder.Services.Configure<CookiePolicyOptions>(options =>
-        {
-            options.CheckConsentNeeded = context => true;
-            options.MinimumSameSitePolicy = SameSiteMode.None;
-        }); // not used?
-
-        builder.Services.AddSession();
-        builder.Services.AddDistributedMemoryCache(); // not used?
-
+            
         return builder;
     }
 }
