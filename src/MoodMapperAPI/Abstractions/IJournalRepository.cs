@@ -1,6 +1,7 @@
 ﻿namespace MoodMapperAPI.Abstractions;
 
 public interface IJournalRepository
-{
-    Task<Journal?> GetByUser(string userId);
+{  
+    Task CreateJournalAsync(Journal journal);
+    IEnumerable<Journal?> GetByUser(string userId);
 }

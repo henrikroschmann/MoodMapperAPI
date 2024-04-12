@@ -2,17 +2,22 @@
 
 [ApiController]
 [Route("/api/v1/[controller]")]
+[Authorize]
 public class JournalController(IJournalService journalService, ILogger<JournalController> logger) : ControllerBase
 {
     private readonly IJournalService _journalService = journalService;
     private readonly ILogger<JournalController> _logger = logger;
 
     [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetJournal(int id)
     {
         try
         {
-            var result = await _journalService.GetJournal(id);
+            var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = await _journalService.GetJournal(userid, id);
             if (result == null)
             {
                 return NotFound();

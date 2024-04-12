@@ -1,10 +1,12 @@
 ﻿using MoodMapperAPI.Infrastructure.Extensions;
+using MoodMapperAPI.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder();
 
 builder.AddServiceDefaults();
 builder.Services.AddControllers();
 builder.Services.AddRouting();
+
 
 var app = builder.Build();
 //app.MapDefaultEndpoints();

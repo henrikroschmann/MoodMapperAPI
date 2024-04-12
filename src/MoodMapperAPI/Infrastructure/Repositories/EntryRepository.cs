@@ -2,28 +2,26 @@
 
 namespace MoodMapperAPI.Infrastructure.Repositories;
 
-public class EntryRepository(ApplicationDbContext context) : IEntryRepository
+public class EntryRepository(ApplicationDbContext context) : GenericRepository<Entry>(context), IDisposable
 {
     private readonly ApplicationDbContext _context = context;
+    private bool disposed = false;
 
-    public Task? AddEntry(Entry newEntry)
+    public void Dispose()
     {
-        _context.Entries.Add(newEntry);
-        return null;
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 
-    public Task DeleteAsync(Entry entry)
+    public void Dispose(bool disposing)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<Entry> GetById(int entryId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<Entry> GetJournalEntriesWithPagination(int journalId, EntryParameters parameters)
-    {
-        throw new NotImplementedException();
+        if (!this.disposed)
+        {
+            if (disposing)
+            {
+                _context.Dispose();
+            }
+        }
+        this.disposed = true;
     }
 }

@@ -8,6 +8,9 @@ public class EntryController(IEntryService entryService, ILogger<EntryController
     private readonly ILogger<EntryController> _logger = logger;
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateEntry([FromBody] EntryDto entry)
     {
         if (!ModelState.IsValid)

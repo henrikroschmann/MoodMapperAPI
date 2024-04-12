@@ -2,9 +2,9 @@
 
 public interface IJournalService
 {
-    Task<Journal> CreateJournal(JournalDto journal);
+    Task<Journal> CreateJournal(string userid, JournalDto journal);
 
-    Task DeleteJournal(int id);
+    Task DeleteJournal(string userid, int id);
 
-    Task<Journal> GetJournal(int id);
+    Task<Journal> GetJournal(string userid, int id);
 }

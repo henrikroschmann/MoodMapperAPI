@@ -1,19 +1,17 @@
-﻿using MoodMapperAPI.Infrastructure.Data;
+﻿namespace MoodMapperAPI.Infrastructure.Repositories;
 
-namespace MoodMapperAPI.Infrastructure.Repositories;
-
-public class JournalRepository : IJournalRepository
+public class JournalRepository(IGenericRepository<Journal> repo) : IJournalRepository
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IGenericRepository<Journal> _repo = repo;
 
-    public JournalRepository(ApplicationDbContext context)
+    public async Task<Journal> CreateJournalAsync(Journal journal)
     {
-        _context = context;
+        await _repo.InsertAsync(journal);
+        return _repo.SaveAsync();
     }
 
-    public async Task<Journal?> GetByUser(string userId)
+    public IEnumerable<Journal?> GetByUser(string userId)
     {
-        return await _context.Journals
-            .FirstOrDefaultAsync(x => x.UserId == userId);
+        return _repo.GetByUserId(userId);
     }
 }
